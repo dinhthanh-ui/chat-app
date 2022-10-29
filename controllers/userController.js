@@ -136,27 +136,54 @@ module.exports.getAllUser = async (req, res) =>
 {
 	try
 	{
-		const users = await User.findById(req.params.id)
-
-		const userData = [
-			{
-				email: users.email,
-				username: users.username,
-				avatarImage: users.avatarImage,
-				_id: users._id,
-			}
-		]
-		if (users)
+		const user = await User.find({ _id: { $ne: req.params.id } }).select([
+			"email",
+			"username",
+			"avatarImage",
+			"_id",
+		]);
+		if (user)
 		{
 			return res.status(201).json({
 				code: 1,
-				userData,
+				user,
 				msg: " thanh cong ",
 			})
 		}
 
 	} catch (error)
 	{
+		console.log(error);
+		return res.status(500).json({
+			code: 0,
+			msg: " loi server ",
+		})
+	}
+}
+module.exports.logout = (req, res, next) =>
+{
+	try
+	{
+
+		if (!req.params.id)
+		{
+			return res.status(401).json({
+				code: -1,
+				msg: " khong ton tai nguoi dung ",
+			})
+		} else
+		{
+			onlineUsers.delete(req.params.id);
+
+			return res.status(201).json({
+				code: 1,
+				msg: " thanh cong ",
+			})
+		}
+
+	} catch (error)
+	{
+
 		console.log(error);
 		return res.status(500).json({
 			code: 0,
