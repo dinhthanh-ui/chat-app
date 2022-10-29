@@ -31,7 +31,8 @@ const Login = () =>
 				navigate("/");
 			} catch (error)
 			{
-				toast.error(error.response)
+				console.log(error)
+				toast.error(error.response.data.msg)
 			}
 		}
 	};
