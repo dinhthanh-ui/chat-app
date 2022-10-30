@@ -16,7 +16,8 @@ const Contacts = ({ contacts, changeChat }) =>
 			if (data)
 			{
 				setCurrentUserName(data.username);
-				setCurrentUserImage(data.image);
+
+				setCurrentUserImage(data.avatarImage);
 			}
 		}
 		checkData();
@@ -41,6 +42,7 @@ const Contacts = ({ contacts, changeChat }) =>
 							{
 								contacts.map((contact, index) =>
 								{
+									console.log(contact)
 									return (
 										<div
 											key={contact._id}
