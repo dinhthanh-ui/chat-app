@@ -80,7 +80,7 @@ module.exports.login = async (req, res, next) =>
 					username: user.username,
 					email: user.email,
 					isAvatarImageSet: user.isAvatarImageSet,
-					image: user.avatarImage,
+					avatarImage: user.avatarImage,
 				}
 				delete user.password;
 				return res.status(201).json({
